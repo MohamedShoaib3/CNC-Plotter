@@ -1,54 +1,83 @@
+
 # 🤖 CNC Plotter Project
 
-A **computer-controlled drawing machine** built using stepper motors and a servo to draw 2D shapes on paper based on G-code instructions.
+A **2D computer-controlled plotter** that uses stepper motors and a lead-screw-based Z-axis to precisely draw designs using G-code.
 
 ---
 
 ## 📌 Project Overview
 
-- 🎯 **Goal**: Design and implement a CNC plotter using Arduino UNO, GRBL firmware, and stepper motors to draw 2D designs.
+- 🎯 **Goal**: Build a CNC plotter using Arduino UNO, GRBL firmware, and NEMA 17 stepper motors — **including a mechanical Z-axis for pen control**.
 - 🖊️ **Drawing Area**: 300 mm x 300 mm
-- 🧩 **Control Software**: [OpenBuilds Control](https://software.openbuilds.com/) / [Universal G-code Sender (UGS)](https://winder.github.io/ugs_website/)
+- 🧩 **Control Software**:  
+  - [OpenBuilds Control](https://software.openbuilds.com/)  
+  - [Universal G-code Sender (UGS)](https://winder.github.io/ugs_website/)
 
 ---
 
-## 🔧 Hardware Components
+## 🔧 Updated Hardware Components
 
-- Arduino UNO
-- CNC Shield v3 + A4988 Stepper Drivers
-- 2 × NEMA 17 Stepper Motors (for X and Y axes)
-- 1 × SG90 Servo Motor (pen up/down mechanism)
-- 12V Power Supply
-- Pen holder mechanism
-- Wooden or acrylic frame structure
-- USB cable for communication
+| Component                  | Description                                           |
+|---------------------------|-------------------------------------------------------|
+| Arduino UNO               | Flashed with GRBL firmware                            |
+| CNC Shield v3             | Controls all axes via A4988 drivers                   |
+| A4988 Stepper Drivers     | Drives stepper motors                                 |
+| 3 × NEMA 17 Motors        | X, Y axes and **Z-axis with screw mechanism**         |
+| **Z-Axis Upgrade**        | **M10 threaded rod (pitch = 1.5 mm)** replaces servo  |
+| 12V 5A Power Supply       | Supplies all components                               |
+| Pen holder with lift mech | Mounted on Z-axis screw                               |
+| Frame                     | Built from MDF or acrylic with steel rods             |
+| USB Cable                 | Connects Arduino to PC                                |
 
 ---
 
 ## 🧠 Software & Programming
 
-- **GRBL Firmware**: Flashed onto Arduino UNO for interpreting G-code.
-- **G-code Instructions**: Used to control motor movements and pen positioning.
-- **Servo Control via G-code**:  
-  - `M3 S30` → Pen Down  
-  - `M3 S90` → Pen Up
+- **GRBL Firmware**: Interprets standard G-code and controls all 3 axes.
+- **Z-Axis Control** (no servo):
+  - Use **Z-axis motion** to lift/lower pen in G-code:
+    - `G1 Z0` → Pen Down
+    - `G1 Z5` → Pen Up (example)
+- **G-code Generation Tools**:
+  - Inkscape (with GcodeTools plugin)
+  - Python script (`svg_to_gcode.py`) with Z motion support
 
-You can generate G-code using tools like:
-- Inkscape with Gcode Tools extension
-- Custom Python scripts (`svg_to_gcode.py`)
+---
+
+## ⚙️ Calibration Parameters
+
+| Parameter | Axis | Value         | Description                               |
+|----------:|------|---------------|-------------------------------------------|
+| `$100`    | X    | 400.00         | Steps/mm for X-axis                       |
+| `$101`    | Y    | 400.00         | Steps/mm for Y-axis                       |
+| `$102`    | Z    | **2133.33**   | Based on M10 rod with 1.5 mm pitch        |
+| `$112`    | Z    | **200 mm/min**| Z max speed                               |
+| `$122`    | Z    | 20 mm/s²      | Z acceleration                            |
+
+📌 **Note**: Adjust `$102` if you're using microstepping other than 1/16 or if the thread pitch differs.
+
+---
+
+## 🧪 Motor Wiring Guide
+
+To determine stepper motor pairs:
+
+1. Try connecting 2 wires at a time and rotate shaft by hand.
+2. If it resists, those two form one coil.
+3. Wire as follows (example from your case):
+   - A+ A−: Red + Red/White
+   - B+ B−: Black + Black/White
+   - Repeat for each axis.
 
 ---
 
 ## ▶️ How to Use
 
-1. Flash GRBL firmware to Arduino UNO using the Arduino IDE or XLoader.
-2. Assemble the mechanical frame and mount all electronic components.
-3. Launch a G-code sender like UGS.
-4. Connect the CNC machine to your PC via USB.
-5. Calibrate steps/mm:
-   - `$100` → X-axis steps/mm  
-   - `$101` → Y-axis steps/mm  
-6. Load and send a G-code file (e.g., `square.gcode`) to start plotting.
+1. Flash GRBL to Arduino UNO.
+2. Assemble mechanical frame and install electronics.
+3. Connect to PC and launch G-code sender.
+4. Send G-code with proper **Z-axis movements**.
+5. Start plotting.
 
 ---
 
@@ -58,38 +87,21 @@ You can generate G-code using tools like:
 CNC_Plotter_Project/
 ├── README.md
 ├── Documentation/
-│   ├── Presentation.pdf
-│   ├── Book.pdf (optional)
-│   └── Poster.pdf (optional)
+│   ├── Updated_Presentation.pdf
+│   └── Poster.pdf
 ├── Media/
-│   ├── Project_image1.jpg
-│   ├── Project_image2.jpg
-│   ├── Result_Video.mp4
-│   ├── Team_picture1.jpg
-│   └── Other media files
+│   ├── Build_Photo.jpg
+│   ├── Demo_Video.mp4
+│   └── Team_Photo.jpg
 ├── Programming/
 │   ├── Arduino/
-│   │   └── main_grbl_code.ino
-│   └── Python/
-│       ├── gcode_generator.py
-│       └── svg_to_gcode.py
-└── Other/
-    ├── sub-sector-1/
-    └── sub-sector-n/
+│      └── grbl_config.ino
+
 ```
 
 ---
 
 ## 📷 Demo & Results
 
-![Plotter in Action](Media/Project_image1.jpg)  
-Check out the [Result Video](Media/Result_Video.mp4) to see the machine in operation.
-
----
-
-## 🚀 Future Enhancements
-
-- Add limit switches for better axis referencing.
-- Improve structural stability using aluminum frames.
-- Add touchscreen control interface (e.g., using Nextion).
-- Support for plotting on different surfaces.
+📸 Picture of updated design with mechanical Z  
+🎥 Demo Video: `Demo_Video.mp4`
