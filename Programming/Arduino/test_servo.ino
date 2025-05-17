@@ -1,24 +1,29 @@
-#include <Servo.h>
+#include <AccelStepper.h>
 
-// Define servo motor for pen up/down
-Servo penServo;
+// Define stepper motor for Z axis
+AccelStepper stepperZ(1, 4, 7); // Z axis: STEP=4, DIR=7
 
 void setup() {
   Serial.begin(9600);  // Start Serial Monitor for debugging
   
-  penServo.attach(11); // Attach servo to pin D11
-  penServo.write(90);  // Raise pen to start position
-  delay(1000);         // Wait for 1 second
+  stepperZ.setMaxSpeed(1000);  // Set max speed for Z axis
+  stepperZ.setAcceleration(500); // Set acceleration for Z axis
 }
 
 void loop() {
-  // Lower pen
-  Serial.println("Lowering pen...");
-  penServo.write(30);  // Lower pen
-  delay(1000);  // Wait for 1 second
-  
-  // Raise pen
-  Serial.println("Raising pen...");
-  penServo.write(90);  // Raise pen
-  delay(1000);  // Wait for 1 second
+  // Move Z axis upward 200 steps
+  Serial.println("Moving Z motor up...");
+  stepperZ.moveTo(200);  // Move Z axis up
+  while (stepperZ.distanceToGo() != 0) {
+    stepperZ.run();  // Run motor Z
+  }
+  delay(1000); // Wait for 1 second
+
+  // Move Z axis back to 0
+  Serial.println("Moving Z motor back down...");
+  stepperZ.moveTo(0);  // Move Z axis back to 0
+  while (stepperZ.distanceToGo() != 0) {
+    stepperZ.run();  // Run motor Z
+  }
+  delay(1000); // Wait for 1 second
 }
