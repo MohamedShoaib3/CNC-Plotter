@@ -109,5 +109,5 @@ CNC_Plotter_Project/
 
 ## 📷 Demo & Results
 
-📸 Picture of updated design (https://drive.google.com/drive/folders/12sLaz3ExqTj9AxfeG7VGwZdliIa3SYTu?usp=sharing )
+📸 [Picture of updated design](https://drive.google.com/drive/folders/12sLaz3ExqTj9AxfeG7VGwZdliIa3SYTu?usp=sharing)
 🎥 Demo Video: `Demo_Video.mp4`
