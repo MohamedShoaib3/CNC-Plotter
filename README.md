@@ -81,8 +81,7 @@ To determine stepper motor pairs:
 ---
 
 ## 📁 Project Structure
-
-```
+---
 CNC_Plotter_Project/
 ├── README.md
 ├── Documentation/
@@ -109,5 +108,9 @@ CNC_Plotter_Project/
 
 ## 📷 Demo & Results
 
-📸 [Picture of updated design](https://drive.google.com/drive/folders/12sLaz3ExqTj9AxfeG7VGwZdliIa3SYTu?usp=sharing)
+📸 [Picture of updated design](https://drive.google.com/drive/folders/12sLaz3ExqTj9AxfeG7VGwZdliIa3SYTu?usp=sharing) 
 🎥 Demo Video: `Demo_Video.mp4`
+
+---
+
+> Created by Mohamed Shoaib and team – Faculty of Artificial Intelligence, Kafrelsheikh University.
