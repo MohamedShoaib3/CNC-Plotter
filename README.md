@@ -1,5 +1,5 @@
 
-# 🤖 CNC Plotter Project
+# 🤖 CNC Plotter Project 
 
 A **2D computer-controlled plotter** that uses stepper motors and a lead-screw-based Z-axis to precisely draw designs using G-code.
 
@@ -23,8 +23,8 @@ A **2D computer-controlled plotter** that uses stepper motors and a lead-screw-b
 | CNC Shield v3             | Controls all axes via A4988 drivers                   |
 | A4988 Stepper Drivers     | Drives stepper motors                                 |
 | 3 × NEMA 17 Motors        | X, Y axes and **Z-axis with screw mechanism**         |
-| **Z-Axis Upgrade**        | **M10 threaded rod (pitch = 1.5 mm)** replaces servo  |
-| 12V 5A Power Supply       | Supplies all components                               |
+| **Z-Axis Upgrade**        | **M10 threaded rod (pitch = 1.5 mm)**
+| 12V 3A Power Supply       | Supplies all components                               |
 | Pen holder with lift mech | Mounted on Z-axis screw                               |
 | Frame                     | Built from MDF or acrylic with steel rods             |
 | USB Cable                 | Connects Arduino to PC                                |
@@ -34,13 +34,12 @@ A **2D computer-controlled plotter** that uses stepper motors and a lead-screw-b
 ## 🧠 Software & Programming
 
 - **GRBL Firmware**: Interprets standard G-code and controls all 3 axes.
-- **Z-Axis Control** (no servo):
+- **Z-Axis Control**:
   - Use **Z-axis motion** to lift/lower pen in G-code:
     - `G1 Z0` → Pen Down
     - `G1 Z5` → Pen Up (example)
 - **G-code Generation Tools**:
   - Inkscape (with GcodeTools plugin)
-  - Python script (`svg_to_gcode.py`) with Z motion support
 
 ---
 
@@ -48,8 +47,8 @@ A **2D computer-controlled plotter** that uses stepper motors and a lead-screw-b
 
 | Parameter | Axis | Value         | Description                               |
 |----------:|------|---------------|-------------------------------------------|
-| `$100`    | X    | 400.00         | Steps/mm for X-axis                       |
-| `$101`    | Y    | 400.00         | Steps/mm for Y-axis                       |
+| `$100`    | X    | 80.00         | Steps/mm for X-axis                       |
+| `$101`    | Y    | 80.00         | Steps/mm for Y-axis                       |
 | `$102`    | Z    | **2133.33**   | Based on M10 rod with 1.5 mm pitch        |
 | `$112`    | Z    | **200 mm/min**| Z max speed                               |
 | `$122`    | Z    | 20 mm/s²      | Z acceleration                            |
@@ -76,7 +75,7 @@ To determine stepper motor pairs:
 1. Flash GRBL to Arduino UNO.
 2. Assemble mechanical frame and install electronics.
 3. Connect to PC and launch G-code sender.
-4. Send G-code with proper **Z-axis movements**.
+4. Send G-code with proper **Z-axis movements**
 5. Start plotting.
 
 ---
@@ -95,13 +94,20 @@ CNC_Plotter_Project/
 │   └── Team_Photo.jpg
 ├── Programming/
 │   ├── Arduino/
-│      └── grbl_config.ino
-
-```
+│   │   └── grbl_config.ino
+│   └── G-code/
+│       ├── Inkscape_Exports/
+│       │   └── example.gcode
+│       └── gcode_examples/
+│ 
+└── Design_Files/
+    └── Inkscape_SVGs/
+        ├── logo.svg
+        └── test_pattern.svg
 
 ---
 
 ## 📷 Demo & Results
 
-📸 Picture of updated design with mechanical Z  
+📸 Picture of updated design https://drive.google.com/drive/folders/12sLaz3ExqTj9AxfeG7VGwZdliIa3SYTu?usp=sharing 
 🎥 Demo Video: `Demo_Video.mp4`
