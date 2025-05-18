@@ -81,7 +81,7 @@ To determine stepper motor pairs:
 ---
 
 ## 📁 Project Structure
----
+```
 CNC_Plotter_Project/
 ├── README.md
 ├── Documentation/
@@ -103,7 +103,7 @@ CNC_Plotter_Project/
     └── Inkscape_SVGs/
         ├── logo.svg
         └── test_pattern.svg
-
+```
 ---
 
 ## 📷 Demo & Results
